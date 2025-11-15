@@ -46,7 +46,6 @@ public class PackCacheUtils {
             if (optionalPackNeedsUpdate || extrasPackNeedsUpdate) {
                 Cache.saveCacheDates();
             }
-            // how on gods green earth did i accidentally delete this are we fr
             if (optionalPackNeedsUpdate) {
                 SERVER.log("Downloading GeyserOptionalPack...");
                 InputStream in = HTTP.request("https://download.geysermc.org/v2/projects/geyseroptionalpack/versions/latest/builds/latest/downloads/geyseroptionalpack");
@@ -66,20 +65,8 @@ public class PackCacheUtils {
         RP_GEYSER_OPTIONAL = ResourcePack.create(PackCodec.path(GEYSER_OPTIONAL_PACK));
         RP_GEYSER_EXTRAS = ResourcePack.create(PackCodec.path(GEYSER_EXTRAS_PACK));
 
-        // temporary, remove when geyserextras is released as its to remove a workaround for a bug i fixed that i suggested in the discord
-        Path geyserMCPacks = GE.geyserApi.packDirectory();
-        File geWorkaroundPack = geyserMCPacks.resolve("GeyserExtrasPack.mcpack").toFile();
-        if (geWorkaroundPack.exists()) {
-            if (geWorkaroundPack.delete()) {
-                SERVER.log("Deleted GeyserExtrasPack.mcpack from GeyserMC packs folder");
-            }
-        }
-        File gopWorkaroundPack = geyserMCPacks.resolve("GeyserOptionalPack.mcpack").toFile();
-        if (gopWorkaroundPack.exists()) {
-            if (gopWorkaroundPack.delete()) {
-                SERVER.log("Deleted GeyserOptionalPack.mcpack from GeyserMC packs folder");
-            }
-        }
+        // Pack deletion code removed - packs should remain in Geyser folder
+        // The original deletion was a temporary workaround that is no longer needed
     }
 
     private static boolean checkOptionalPack() {
